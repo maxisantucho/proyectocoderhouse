@@ -1,4 +1,4 @@
-package com.proyectocoderhouse.entidades;
+package com.proyectocoderhouse.modelos;
 
 import java.util.List;
 
@@ -24,6 +24,8 @@ public class Cliente {
 	private String apellido;
 	@Column(name = "dni")
 	private double dni;
+	@Column(name = "anios")
+	private int fechaDeNacimiento;
 	
 	@OneToMany(mappedBy = "cliente")
 	private List<Producto> productos;
@@ -57,13 +59,12 @@ public class Cliente {
 	public void setApellido(String apellido) {
 		this.apellido = apellido;
 	}
-	
-	public double getDni() {
-		return dni;
-	}
-	
-	public void setDni(double dni) {
-		this.dni = dni;
+
+	public int getFechaDeNacimiento() {
+		return fechaDeNacimiento;
 	}
 
+	public void setFechaDeNacimiento(int fechaDeNacimiento) {
+		this.fechaDeNacimiento = fechaDeNacimiento;
+	}
 }

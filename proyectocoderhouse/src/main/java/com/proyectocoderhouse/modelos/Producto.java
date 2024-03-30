@@ -1,4 +1,4 @@
-package com.proyectocoderhouse.entidades;
+package com.proyectocoderhouse.modelos;
 
 import java.util.Objects;
 
