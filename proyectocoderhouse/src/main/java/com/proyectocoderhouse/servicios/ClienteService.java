@@ -34,8 +34,8 @@ public class ClienteService {
 	
 	public void calcularEdad(Cliente cliente) {
 		LocalDate fecha_actual = LocalDate.now();
-		if ((cliente.getFechaDeNacimiento() != null) && (fecha_actual != null)) {
-			int edad = Period.between(cliente.getFechaDeNacimiento(), fecha_actual).getYears();
+		if ((cliente.getFecha_nacimiento() != null) && (fecha_actual != null)) {
+			int edad = Period.between(cliente.getFecha_nacimiento(), fecha_actual).getYears();
 			cliente.setEdad(edad);
 		}  
 	}

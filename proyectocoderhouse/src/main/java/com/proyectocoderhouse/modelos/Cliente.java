@@ -30,7 +30,7 @@ public class Cliente {
 	private double dni;
 	@Column(name = "fecha_nacimiento")
 	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-	private LocalDate fechaDeNacimiento;
+	private LocalDate fecha_nacimiento;
 	
 	@Transient
 	private int edad;
@@ -67,15 +67,15 @@ public class Cliente {
 	public void setApellido(String apellido) {
 		this.apellido = apellido;
 	}
-
-	public LocalDate getFechaDeNacimiento() {
-		return fechaDeNacimiento;
-	}
-
-	public void setFechaDeNacimiento(LocalDate fechaDeNacimiento) {
-		this.fechaDeNacimiento = fechaDeNacimiento;
-	}
 	
+	public LocalDate getFecha_nacimiento() {
+		return fecha_nacimiento;
+	}
+
+	public void setFecha_nacimiento(LocalDate fecha_nacimiento) {
+		this.fecha_nacimiento = fecha_nacimiento;
+	}
+
 	public int getEdad() {
 		return edad;
 	}
