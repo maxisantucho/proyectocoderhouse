@@ -2,6 +2,7 @@ package com.proyectocoderhouse.controladores;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -19,12 +20,13 @@ import com.proyectocoderhouse.servicios.ClienteService;
 @RequestMapping("/clientes")
 public class ClienteController {
 	
-	private ClienteService clienteSercive;
+	@Autowired
+	private ClienteService clienteService;
 	
 	@GetMapping(value = "/", produces = { MediaType.APPLICATION_JSON_VALUE })
 	public ResponseEntity<List<Cliente>> listarClientes() {
 		try {
-			List<Cliente> cliente = clienteSercive.listarClientes();
+			List<Cliente> cliente = clienteService.listarClientes();
 			return new ResponseEntity<>(cliente, HttpStatus.OK);
 		} catch(Exception e) {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -34,7 +36,7 @@ public class ClienteController {
 	@GetMapping(value = "/{id}", produces = { MediaType.APPLICATION_JSON_VALUE })
 	public ResponseEntity<Cliente> mostrarClientePorId(@PathVariable("id") int id) {
 		try {
-			Cliente cliente = clienteSercive.mostrarClientePorId(id);
+			Cliente cliente = clienteService.mostrarClientePorId(id);
 			if(cliente != null) {
 				return new ResponseEntity<>(cliente, HttpStatus.OK);
 			} else {
@@ -47,7 +49,7 @@ public class ClienteController {
 	
 	@PostMapping(value = "/agregar", consumes = { MediaType.APPLICATION_JSON_VALUE })
 	public ResponseEntity<Cliente> agregarCliente(@RequestBody Cliente cliente) {
-		clienteSercive.agregarCliente(cliente);
+		clienteService.agregarCliente(cliente);
 		return new ResponseEntity<>(cliente, HttpStatus.CREATED);
 	}
 

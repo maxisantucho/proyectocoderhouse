@@ -1,6 +1,9 @@
 package com.proyectocoderhouse.modelos;
 
+import java.time.LocalDate;
 import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -9,6 +12,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 
 @Entity
 @Table(name = "clientes")
@@ -24,8 +28,12 @@ public class Cliente {
 	private String apellido;
 	@Column(name = "dni")
 	private double dni;
-	@Column(name = "anios")
-	private int fechaDeNacimiento;
+	@Column(name = "fecha_nacimiento")
+	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+	private LocalDate fechaDeNacimiento;
+	
+	@Transient
+	private int edad;
 	
 	@OneToMany(mappedBy = "cliente")
 	private List<Producto> productos;
@@ -60,11 +68,19 @@ public class Cliente {
 		this.apellido = apellido;
 	}
 
-	public int getFechaDeNacimiento() {
+	public LocalDate getFechaDeNacimiento() {
 		return fechaDeNacimiento;
 	}
 
-	public void setFechaDeNacimiento(int fechaDeNacimiento) {
+	public void setFechaDeNacimiento(LocalDate fechaDeNacimiento) {
 		this.fechaDeNacimiento = fechaDeNacimiento;
+	}
+	
+	public int getEdad() {
+		return edad;
+	}
+
+	public void setEdad(int edad) {
+		this.edad = edad;
 	}
 }
