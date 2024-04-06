@@ -16,32 +16,32 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.proyectocoderhouse.modelos.Cliente;
-import com.proyectocoderhouse.servicios.ClienteService;
+import com.proyectocoderhouse.modelos.Compra;
+import com.proyectocoderhouse.servicios.CompraService;
 
 @RestController
-@RequestMapping("/clientes")
-public class ClienteController {
+@RequestMapping("/compras")
+public class CompraController {
 	
 	@Autowired
-	private ClienteService clienteService;
+	private CompraService compraService;
 	
-	@GetMapping(value = "/", produces = { MediaType.APPLICATION_JSON_VALUE })
-	public ResponseEntity<List<Cliente>> listarClientes() {
+	@GetMapping(value = "/", produces = {MediaType.APPLICATION_JSON_VALUE})
+	public ResponseEntity<List<Compra>> listarCompra() {
 		try {
-			List<Cliente> cliente = clienteService.listarClientes();
-			return new ResponseEntity<>(cliente, HttpStatus.OK);
+			List<Compra> compras = compraService.listarCompra();
+			return new ResponseEntity<>(compras, HttpStatus.OK);
 		} catch(Exception e) {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 	
-	@GetMapping(value = "/{id}", produces = { MediaType.APPLICATION_JSON_VALUE })
-	public ResponseEntity<Cliente> mostrarClientePorId(@PathVariable("id") int id) {
+	@GetMapping(value = "/{id}", produces = {MediaType.APPLICATION_JSON_VALUE})
+	public ResponseEntity<Compra> mostrarCompraPorId(@PathVariable("id") int id) {
 		try {
-			Cliente cliente = clienteService.mostrarClientePorId(id);
-			if(cliente != null) {
-				return new ResponseEntity<>(cliente, HttpStatus.OK);
+			Compra compra = compraService.mostrarCompraPorId(id);
+			if(compra != null) {
+				return new ResponseEntity<>(compra, HttpStatus.OK);
 			} else {
 				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 			}
@@ -51,25 +51,25 @@ public class ClienteController {
 	}
 	
 	@PostMapping(value = "/agregar", consumes = { MediaType.APPLICATION_JSON_VALUE })
-	public ResponseEntity<Cliente> agregarCliente(@RequestBody Cliente cliente) {
-		clienteService.agregarCliente(cliente);
-		return new ResponseEntity<>(cliente, HttpStatus.CREATED);
+	public ResponseEntity<Compra> agregarCompra(@RequestBody Compra compra) {
+		compraService.agregarCompra(compra);
+		return new ResponseEntity<>(compra, HttpStatus.CREATED);
 	}
 	
-	@PutMapping(value = "/{id}/editar", consumes = {MediaType.APPLICATION_JSON_VALUE})
-	public ResponseEntity<Cliente> editarClientePorId(@PathVariable("id") int id, @RequestBody Cliente cliente) {
+	@PutMapping(value = "/{id}/editar", consumes = { MediaType.APPLICATION_JSON_VALUE })
+	public ResponseEntity<Compra> editarCompraPorId(@PathVariable("id") int id, @RequestBody Compra compra) {
 		try {
-			Cliente clienteEditado = clienteService.editarClientePorId(id, cliente);
-			return new ResponseEntity<>(clienteEditado, HttpStatus.OK);
-		} catch(Exception e){
+			Compra compraEditada = compraService.editarCompraPorId(id, compra);
+			return new ResponseEntity<>(compraEditada, HttpStatus.OK);
+		} catch(Exception e) {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 	
 	@DeleteMapping(value = "/{id}/eliminar", produces = { MediaType.APPLICATION_JSON_VALUE })
-	public ResponseEntity<Void> eliminarClientePorId(@PathVariable("id") int id) {
+	public ResponseEntity<Void> eliminarCompraPorId(@PathVariable("id") int id) {
 		try {
-			clienteService.eliminarClientePorId(id);
+			compraService.eliminarCompraPorId(id);
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		} catch(EmptyResultDataAccessException e) {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);

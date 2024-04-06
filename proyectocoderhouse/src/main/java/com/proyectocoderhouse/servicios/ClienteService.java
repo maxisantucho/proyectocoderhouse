@@ -5,6 +5,7 @@ import java.time.Period;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import com.proyectocoderhouse.modelos.Cliente;
@@ -30,6 +31,27 @@ public class ClienteService {
 	
 	public Cliente agregarCliente(Cliente cliente) {
 		return clienteRepository.save(cliente);
+	}
+	
+	public Cliente editarClientePorId(int id, Cliente cliente) {
+		try {
+			if(clienteRepository.existsById(id)) {
+				cliente.setId(id);
+				return clienteRepository.save(cliente);
+			}
+		} catch(EmptyResultDataAccessException e) {
+			return null;
+		}
+		return null;
+	}
+	
+	public boolean eliminarClientePorId(int id) {
+		try {
+			clienteRepository.deleteById(id);
+			return true;
+		} catch(EmptyResultDataAccessException e) {
+			return false;
+		}
 	}
 	
 	public void calcularEdad(Cliente cliente) {

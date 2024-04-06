@@ -16,32 +16,32 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.proyectocoderhouse.modelos.Cliente;
-import com.proyectocoderhouse.servicios.ClienteService;
+import com.proyectocoderhouse.modelos.Producto;
+import com.proyectocoderhouse.servicios.ProductoService;
 
 @RestController
-@RequestMapping("/clientes")
-public class ClienteController {
+@RequestMapping("/producto")
+public class ProductoController {
 	
 	@Autowired
-	private ClienteService clienteService;
+	private ProductoService productoService;
 	
 	@GetMapping(value = "/", produces = { MediaType.APPLICATION_JSON_VALUE })
-	public ResponseEntity<List<Cliente>> listarClientes() {
+	public ResponseEntity<List<Producto>> listarProducto() {
 		try {
-			List<Cliente> cliente = clienteService.listarClientes();
-			return new ResponseEntity<>(cliente, HttpStatus.OK);
+			List<Producto> producto = productoService.listarProducto();
+			return new ResponseEntity<>(producto, HttpStatus.OK);
 		} catch(Exception e) {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 	
 	@GetMapping(value = "/{id}", produces = { MediaType.APPLICATION_JSON_VALUE })
-	public ResponseEntity<Cliente> mostrarClientePorId(@PathVariable("id") int id) {
+	public ResponseEntity<Producto> mostrarProductoPorId(@PathVariable("id") int id) {
 		try {
-			Cliente cliente = clienteService.mostrarClientePorId(id);
-			if(cliente != null) {
-				return new ResponseEntity<>(cliente, HttpStatus.OK);
+			Producto producto = productoService.mostrarProductoPorId(id);
+			if(producto != null) {
+				return new ResponseEntity<>(producto, HttpStatus.OK);
 			} else {
 				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 			}
@@ -51,25 +51,25 @@ public class ClienteController {
 	}
 	
 	@PostMapping(value = "/agregar", consumes = { MediaType.APPLICATION_JSON_VALUE })
-	public ResponseEntity<Cliente> agregarCliente(@RequestBody Cliente cliente) {
-		clienteService.agregarCliente(cliente);
-		return new ResponseEntity<>(cliente, HttpStatus.CREATED);
+	public ResponseEntity<Producto> agregarProducto(@RequestBody Producto producto) {
+		productoService.agregarProducto(producto);
+		return new ResponseEntity<>(producto, HttpStatus.CREATED);
 	}
 	
-	@PutMapping(value = "/{id}/editar", consumes = {MediaType.APPLICATION_JSON_VALUE})
-	public ResponseEntity<Cliente> editarClientePorId(@PathVariable("id") int id, @RequestBody Cliente cliente) {
+	@PutMapping(value = "/{id}/editar", consumes = { MediaType.APPLICATION_JSON_VALUE })
+	public ResponseEntity<Producto> editarProductoPorId(@PathVariable("id") int id, @RequestBody Producto producto) {
 		try {
-			Cliente clienteEditado = clienteService.editarClientePorId(id, cliente);
-			return new ResponseEntity<>(clienteEditado, HttpStatus.OK);
-		} catch(Exception e){
+			Producto productoEditado = productoService.editarProductoPorId(id, producto);
+			return new ResponseEntity<>(productoEditado, HttpStatus.OK);
+		} catch(Exception e) {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 	
 	@DeleteMapping(value = "/{id}/eliminar", produces = { MediaType.APPLICATION_JSON_VALUE })
-	public ResponseEntity<Void> eliminarClientePorId(@PathVariable("id") int id) {
+	public ResponseEntity<Void> eliminarProductoPorId(@PathVariable("id") int id) {
 		try {
-			clienteService.eliminarClientePorId(id);
+			productoService.eliminarProductoPorId(id);
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		} catch(EmptyResultDataAccessException e) {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
