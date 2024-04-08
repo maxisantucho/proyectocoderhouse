@@ -1,9 +1,6 @@
 package com.proyectocoderhouse.modelos;
 
-import java.time.LocalDate;
 import java.util.List;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -12,7 +9,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-import jakarta.persistence.Transient;
 
 @Entity
 @Table(name = "clientes")
@@ -21,19 +17,15 @@ public class Cliente {
 	@Id
 	@Column(name = "id_cliente")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private int id_cliente;
 	@Column(name = "nombre")
 	private String nombre;
 	@Column(name = "apellido")
 	private String apellido;
 	@Column(name = "dni")
 	private double dni;
-	@Column(name = "fecha_nacimiento")
-	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-	private LocalDate fecha_nacimiento;
-	
-	@Transient
-	private int edad;
+	@Column(name = "email")
+	private String email;
 	
 	@OneToMany(mappedBy = "cliente")
 	private List<Producto> productos;
@@ -41,18 +33,19 @@ public class Cliente {
 	@OneToMany(mappedBy = "cliente")
 	private List<Compra> compras;
 	
+	
 	public Cliente() {
 		
 	}
 	
-	public int getId() {
-		return id;
+	public int getId_cliente() {
+		return id_cliente;
 	}
-	
-	public void setId(int id) {
-		this.id = id;
+
+	public void setId_cliente(int id_cliente) {
+		this.id_cliente = id_cliente;
 	}
-	
+
 	public String getNombre() {
 		return nombre;
 	}
@@ -67,20 +60,29 @@ public class Cliente {
 	public void setApellido(String apellido) {
 		this.apellido = apellido;
 	}
+
+	public double getDni() {
+		return dni;
+	}
+
+	public void setDni(double dni) {
+		this.dni = dni;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public List<Producto> getProductos() {
+		return productos;
+	}
+
+	public void setProductos(List<Producto> productos) {
+		this.productos = productos;
+	}
 	
-	public LocalDate getFecha_nacimiento() {
-		return fecha_nacimiento;
-	}
-
-	public void setFecha_nacimiento(LocalDate fecha_nacimiento) {
-		this.fecha_nacimiento = fecha_nacimiento;
-	}
-
-	public int getEdad() {
-		return edad;
-	}
-
-	public void setEdad(int edad) {
-		this.edad = edad;
-	}
 }

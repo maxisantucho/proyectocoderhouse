@@ -1,6 +1,7 @@
 package com.proyectocoderhouse.modelos;
 
 import java.util.Date;
+import java.util.List;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -9,6 +10,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -18,47 +20,51 @@ public class Compra {
 	@Id
 	@Column(name = "id_compra")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
-	@Column(name = "precio_compra")
-	private double precioCompra;
+	private int id_compra;
+	@Column(name = "total")
+	private double total;
 	@Column(name = "fecha_compra")
-	private Date fechaCompra;
+	private Date fecha_compra;
 	
 	@ManyToOne
 	@JoinColumn(name = "id_cliente")
 	private Cliente cliente;
 	
-	@Column(name = "id_cliente", insertable = false, updatable = false)
-	private int idCliente;
+	@OneToMany(mappedBy = "compra")
+	private List<DetalleCompra> detalle;
 
 	public Compra() {
 		
 	}
 
-	public int getId() {
-		return id;
+	public int getId_compra() {
+		return id_compra;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public void setId_compra(int id_compra) {
+		this.id_compra = id_compra;
+	}
+	
+	public Date getFecha_compra() {
+		return fecha_compra;
 	}
 
-	public double getPrecioCompra() {
-		return precioCompra;
+	public void setFecha_compra(Date fecha_compra) {
+		this.fecha_compra = fecha_compra;
 	}
 
-	public void setPrecioCompra(double precioCompra) {
-		this.precioCompra = precioCompra;
+	public double getTotal() {
+		return total;
 	}
 
-	public Date getFechaCompra() {
-		return fechaCompra;
+	public void setTotal(double total) {
+		this.total = total;
 	}
 
-	public void setFechaCompra(Date fechaCompra) {
-		this.fechaCompra = fechaCompra;
+	public List<DetalleCompra> getDetalle() {
+		return detalle;
 	}
-
+	
 	public Cliente getCliente() {
 		return cliente;
 	}
@@ -67,12 +73,8 @@ public class Compra {
 		this.cliente = cliente;
 	}
 
-	public int getIdCliente() {
-		return idCliente;
-	}
-
-	public void setIdCliente(int idCliente) {
-		this.idCliente = idCliente;
+	public void setDetalle(List<DetalleCompra> detalle) {
+		this.detalle = detalle;
 	}
 	
 }

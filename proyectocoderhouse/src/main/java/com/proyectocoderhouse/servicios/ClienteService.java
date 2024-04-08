@@ -1,7 +1,5 @@
 package com.proyectocoderhouse.servicios;
 
-import java.time.LocalDate;
-import java.time.Period;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,13 +17,11 @@ public class ClienteService {
 	
 	public List<Cliente> listarClientes() {
 		List<Cliente> listaClientes = clienteRepository.findAll();
-		listaClientes.forEach(this::calcularEdad);
 		return listaClientes;
 	}
 	
 	public Cliente mostrarClientePorId(int id) {
 		Cliente cliente = clienteRepository.findById(id).orElse(null);
-		calcularEdad(cliente);
 		return cliente;
 	}
 	
@@ -36,7 +32,7 @@ public class ClienteService {
 	public Cliente editarClientePorId(int id, Cliente cliente) {
 		try {
 			if(clienteRepository.existsById(id)) {
-				cliente.setId(id);
+				cliente.setId_cliente(id);
 				return clienteRepository.save(cliente);
 			}
 		} catch(EmptyResultDataAccessException e) {
@@ -52,14 +48,6 @@ public class ClienteService {
 		} catch(EmptyResultDataAccessException e) {
 			return false;
 		}
-	}
-	
-	public void calcularEdad(Cliente cliente) {
-		LocalDate fecha_actual = LocalDate.now();
-		if ((cliente.getFecha_nacimiento() != null) && (fecha_actual != null)) {
-			int edad = Period.between(cliente.getFecha_nacimiento(), fecha_actual).getYears();
-			cliente.setEdad(edad);
-		}  
 	}
 
 }

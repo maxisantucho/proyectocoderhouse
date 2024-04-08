@@ -18,44 +18,40 @@ public class Producto {
 	@Id
 	@Column(name = "id_producto")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private int id_producto;
 	@Column(name = "nombre_producto")
-	private String nombreProd;
+	private String nombre_producto;
 	@Column(name = "precio")
 	private double precio;
 	@Column(name = "cantidad")
 	private int cantidad;
 	@Column(name = "codigo_barras")
-	private double codigoBarras;
+	private double codigo_barras;
 	
 	@ManyToOne
 	@JoinColumn(name = "id_cliente")
 	private Cliente cliente;
 	
-	@Column(name = "id_cliente", insertable=false, updatable=false)
-	private int idCliente;
-	
-	
 	public Producto() {
 		
 	}
 	
-	public int getId() {
-		return id;
+	public int getId_producto() {
+		return id_producto;
 	}
-	
-	public void setId(int id) {
-		this.id = id;
+
+	public void setId_producto(int id_producto) {
+		this.id_producto = id_producto;
 	}
-	
-	public String getNombreProd() {
-		return nombreProd;
+
+	public String getNombre_producto() {
+		return nombre_producto;
 	}
-	
-	public void setNombreProd(String nombreProd) {
-		this.nombreProd = nombreProd;
+
+	public void setNombre_producto(String nombre_producto) {
+		this.nombre_producto = nombre_producto;
 	}
-	
+
 	public double getPrecio() {
 		return precio;
 	}
@@ -71,13 +67,13 @@ public class Producto {
 	public void setCantidad(int cantidad) {
 		this.cantidad = cantidad;
 	}
-
-	public double getCodigoBarras() {
-		return codigoBarras;
+	
+	public double getCodigo_barras() {
+		return codigo_barras;
 	}
 
-	public void setCodigoBarras(double codigoBarras) {
-		this.codigoBarras = codigoBarras;
+	public void setCodigo_barras(double codigo_barras) {
+		this.codigo_barras = codigo_barras;
 	}
 
 	public Cliente getCliente() {
@@ -88,17 +84,9 @@ public class Producto {
 		this.cliente = cliente;
 	}
 
-	public int getIdCliente() {
-		return idCliente;
-	}
-
-	public void setIdCliente(int idCliente) {
-		this.idCliente = idCliente;
-	}
-
 	@Override
 	public int hashCode() {
-		return Objects.hash(codigoBarras);
+		return Objects.hash(codigo_barras);
 	}
 
 	@Override
@@ -110,7 +98,7 @@ public class Producto {
 		if (getClass() != obj.getClass())
 			return false;
 		Producto other = (Producto) obj;
-		return Double.doubleToLongBits(codigoBarras) == Double.doubleToLongBits(other.codigoBarras);
+		return Double.doubleToLongBits(codigo_barras) == Double.doubleToLongBits(other.codigo_barras);
 	}
 
 }

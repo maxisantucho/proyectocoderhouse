@@ -30,7 +30,7 @@ public class ProductoService {
 	public Producto editarProductoPorId(int id, Producto producto) {
 		try {
 			if(productoRepository.existsById(id)) {
-				producto.setId(id);
+				producto.setId_producto(id);
 				return productoRepository.save(producto);
 			}
 		} catch(EmptyResultDataAccessException e) {

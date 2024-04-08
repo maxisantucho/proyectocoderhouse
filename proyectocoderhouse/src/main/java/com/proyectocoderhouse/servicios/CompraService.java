@@ -30,7 +30,7 @@ public class CompraService {
 	public Compra editarCompraPorId(int id, Compra compra) {
 		try {
 			if(compraRepository.existsById(id)) {
-				compra.setId(id);
+				compra.setId_compra(id);
 				return compraRepository.save(compra);
 			}
 		} catch(EmptyResultDataAccessException e) {
