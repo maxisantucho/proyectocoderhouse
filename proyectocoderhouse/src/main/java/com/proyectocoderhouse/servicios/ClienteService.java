@@ -7,6 +7,7 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import com.proyectocoderhouse.modelos.Cliente;
+import com.proyectocoderhouse.modelos.Producto;
 import com.proyectocoderhouse.repositorios.ClienteRepository;
 
 @Service
@@ -26,7 +27,18 @@ public class ClienteService {
 	}
 	
 	public Cliente agregarCliente(Cliente cliente) {
+		List<Producto> productoLista = cliente.getProductos();
+		cliente.setProductos(productoLista);
 		return clienteRepository.save(cliente);
+		
+		/*
+		 List<Producto> productoLista = cliente.getProductos();
+		if(productoLista.get(cliente.getId_cliente()) == null) {
+			cliente.setProductos(productoLista);
+			return clienteRepository.save(cliente);
+		}
+		return null;
+		*/
 	}
 	
 	public Cliente editarClientePorId(int id, Cliente cliente) {

@@ -1,6 +1,6 @@
 package com.proyectocoderhouse.modelos;
 
-import java.util.Date;
+import java.time.Instant;
 import java.util.List;
 
 import jakarta.persistence.Column;
@@ -24,7 +24,7 @@ public class Compra {
 	@Column(name = "total")
 	private double total;
 	@Column(name = "fecha_compra")
-	private Date fecha_compra;
+	private Instant fecha_compra;
 	
 	@ManyToOne
 	@JoinColumn(name = "id_cliente")
@@ -45,12 +45,9 @@ public class Compra {
 		this.id_compra = id_compra;
 	}
 	
-	public Date getFecha_compra() {
+	public Instant getFecha_compra() {
+		fecha_compra = Instant.now();
 		return fecha_compra;
-	}
-
-	public void setFecha_compra(Date fecha_compra) {
-		this.fecha_compra = fecha_compra;
 	}
 
 	public double getTotal() {
@@ -63,14 +60,6 @@ public class Compra {
 
 	public List<DetalleCompra> getDetalle() {
 		return detalle;
-	}
-	
-	public Cliente getId_cliente() {
-		return id_cliente;
-	}
-
-	public void setId_cliente(Cliente id_cliente) {
-		this.id_cliente = id_cliente;
 	}
 
 	public void setDetalle(List<DetalleCompra> detalle) {

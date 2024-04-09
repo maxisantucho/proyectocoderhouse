@@ -84,5 +84,13 @@ public class Cliente {
 	public void setProductos(List<Producto> productos) {
 		this.productos = productos;
 	}
+
+	public List<Compra> getCompras() {
+		return compras;
+	}
+
+	public void setCompras(List<Compra> compras) {
+		this.compras = compras;
+	}
 	
 }
