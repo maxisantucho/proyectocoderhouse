@@ -30,7 +30,7 @@ public class Producto {
 	
 	@ManyToOne
 	@JoinColumn(name = "id_cliente")
-	private Cliente cliente;
+	private Cliente id_cliente;
 	
 	public Producto() {
 		
@@ -68,22 +68,6 @@ public class Producto {
 		this.cantidad = cantidad;
 	}
 	
-	public double getCodigo_barras() {
-		return codigo_barras;
-	}
-
-	public void setCodigo_barras(double codigo_barras) {
-		this.codigo_barras = codigo_barras;
-	}
-
-	public Cliente getCliente() {
-		return cliente;
-	}
-
-	public void setCliente(Cliente cliente) {
-		this.cliente = cliente;
-	}
-
 	@Override
 	public int hashCode() {
 		return Objects.hash(codigo_barras);

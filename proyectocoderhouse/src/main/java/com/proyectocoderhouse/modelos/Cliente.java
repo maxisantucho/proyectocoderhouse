@@ -23,14 +23,14 @@ public class Cliente {
 	@Column(name = "apellido")
 	private String apellido;
 	@Column(name = "dni")
-	private double dni;
+	private String dni;
 	@Column(name = "email")
 	private String email;
 	
-	@OneToMany(mappedBy = "cliente")
+	@OneToMany(mappedBy = "id_cliente")
 	private List<Producto> productos;
 	
-	@OneToMany(mappedBy = "cliente")
+	@OneToMany(mappedBy = "id_cliente")
 	private List<Compra> compras;
 	
 	
@@ -61,11 +61,11 @@ public class Cliente {
 		this.apellido = apellido;
 	}
 
-	public double getDni() {
+	public String getDni() {
 		return dni;
 	}
 
-	public void setDni(double dni) {
+	public void setDni(String dni) {
 		this.dni = dni;
 	}
 

@@ -20,7 +20,7 @@ import com.proyectocoderhouse.modelos.Producto;
 import com.proyectocoderhouse.servicios.ProductoService;
 
 @RestController
-@RequestMapping("/producto")
+@RequestMapping("/productos")
 public class ProductoController {
 	
 	@Autowired

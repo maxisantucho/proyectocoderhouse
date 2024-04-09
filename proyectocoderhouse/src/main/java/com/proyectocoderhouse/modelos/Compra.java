@@ -28,9 +28,9 @@ public class Compra {
 	
 	@ManyToOne
 	@JoinColumn(name = "id_cliente")
-	private Cliente cliente;
+	private Cliente id_cliente;
 	
-	@OneToMany(mappedBy = "compra")
+	@OneToMany(mappedBy = "id_compra")
 	private List<DetalleCompra> detalle;
 
 	public Compra() {
@@ -65,12 +65,12 @@ public class Compra {
 		return detalle;
 	}
 	
-	public Cliente getCliente() {
-		return cliente;
+	public Cliente getId_cliente() {
+		return id_cliente;
 	}
 
-	public void setCliente(Cliente cliente) {
-		this.cliente = cliente;
+	public void setId_cliente(Cliente id_cliente) {
+		this.id_cliente = id_cliente;
 	}
 
 	public void setDetalle(List<DetalleCompra> detalle) {

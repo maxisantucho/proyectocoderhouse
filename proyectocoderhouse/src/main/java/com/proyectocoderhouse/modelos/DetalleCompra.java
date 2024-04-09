@@ -28,7 +28,7 @@ public class DetalleCompra {
 	
 	@ManyToOne
 	@JoinColumn(name = "id_compra")
-	private Compra compra;
+	private Compra id_compra;
 	
 	@ManyToOne
 	@JoinColumn(name = "id_producto")
@@ -77,13 +77,13 @@ public class DetalleCompra {
 	public void setTotal(double total) {
 		this.total = total;
 	}
-
-	public Compra getCompra() {
-		return compra;
+	
+	public Compra getId_compra() {
+		return id_compra;
 	}
 
-	public void setCompra(Compra compra) {
-		this.compra = compra;
+	public void setId_compra(Compra id_compra) {
+		this.id_compra = id_compra;
 	}
 
 	public Producto getProducto() {
