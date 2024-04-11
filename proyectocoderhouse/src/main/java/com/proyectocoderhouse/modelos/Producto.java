@@ -1,7 +1,5 @@
 package com.proyectocoderhouse.modelos;
 
-import java.util.Objects;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -25,12 +23,14 @@ public class Producto {
 	private double precio;
 	@Column(name = "cantidad")
 	private int cantidad;
-	@Column(name = "codigo_barras")
-	private double codigo_barras;
 	
 	@ManyToOne
 	@JoinColumn(name = "id_cliente")
-	private Cliente id_cliente;
+	private Cliente cliente;
+	
+	@ManyToOne
+	@JoinColumn(name = "id_compra")
+	private Compra compra;
 	
 	public Producto() {
 		
@@ -67,22 +67,13 @@ public class Producto {
 	public void setCantidad(int cantidad) {
 		this.cantidad = cantidad;
 	}
-	
-	@Override
-	public int hashCode() {
-		return Objects.hash(codigo_barras);
+
+	public Cliente getCliente() {
+		return cliente;
 	}
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Producto other = (Producto) obj;
-		return Double.doubleToLongBits(codigo_barras) == Double.doubleToLongBits(other.codigo_barras);
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
 	}
 
 }

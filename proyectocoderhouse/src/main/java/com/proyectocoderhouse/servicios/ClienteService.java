@@ -27,18 +27,9 @@ public class ClienteService {
 	}
 	
 	public Cliente agregarCliente(Cliente cliente) {
-		List<Producto> productoLista = cliente.getProductos();
-		cliente.setProductos(productoLista);
+		List<Producto> listaProductos = cliente.getProductos();
+		cliente.setProductos(listaProductos);
 		return clienteRepository.save(cliente);
-		
-		/*
-		 List<Producto> productoLista = cliente.getProductos();
-		if(productoLista.get(cliente.getId_cliente()) == null) {
-			cliente.setProductos(productoLista);
-			return clienteRepository.save(cliente);
-		}
-		return null;
-		*/
 	}
 	
 	public Cliente editarClientePorId(int id, Cliente cliente) {

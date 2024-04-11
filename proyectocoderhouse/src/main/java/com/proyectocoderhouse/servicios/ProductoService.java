@@ -12,6 +12,8 @@ import com.proyectocoderhouse.repositorios.ProductoRepository;
 @Service
 public class ProductoService {
 	
+	static int contador = 0;
+	
 	@Autowired
 	private ProductoRepository productoRepository;
 	

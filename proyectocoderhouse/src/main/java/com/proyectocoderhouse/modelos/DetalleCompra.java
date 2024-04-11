@@ -5,8 +5,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -17,22 +16,14 @@ public class DetalleCompra {
 	@Column(name = "id_detalle")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id_detalle;
-	@Column(name = "nombre")
-	private String nombre;
-	@Column(name = "cantidad")
-	private double cantidad;
-	@Column(name = "precio")
-	private double precio;
 	@Column(name = "total")
 	private double total;
 	
-	@ManyToOne
-	@JoinColumn(name = "id_compra")
-	private Compra id_compra;
+	@OneToOne(mappedBy = "detalle")
+	private Compra compra;
 	
-	@ManyToOne
-	@JoinColumn(name = "id_producto")
-	private Producto producto;
+	@OneToOne(mappedBy = "detalle")
+	private Cliente cliente;
 	
 	public DetalleCompra() {
 		
@@ -46,52 +37,12 @@ public class DetalleCompra {
 		this.id_detalle = id_detalle;
 	}
 
-	public String getNombre() {
-		return nombre;
-	}
-
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
-
-	public double getCantidad() {
-		return cantidad;
-	}
-
-	public void setCantidad(double cantidad) {
-		this.cantidad = cantidad;
-	}
-
-	public double getPrecio() {
-		return precio;
-	}
-
-	public void setPrecio(double precio) {
-		this.precio = precio;
-	}
-
 	public double getTotal() {
 		return total;
 	}
 
 	public void setTotal(double total) {
 		this.total = total;
-	}
-	
-	public Compra getId_compra() {
-		return id_compra;
-	}
-
-	public void setId_compra(Compra id_compra) {
-		this.id_compra = id_compra;
-	}
-
-	public Producto getProducto() {
-		return producto;
-	}
-
-	public void setProducto(Producto producto) {
-		this.producto = producto;
 	}
 
 }

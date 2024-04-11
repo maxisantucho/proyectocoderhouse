@@ -7,7 +7,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -27,11 +29,12 @@ public class Cliente {
 	@Column(name = "email")
 	private String email;
 	
-	@OneToMany(mappedBy = "id_cliente")
-	private List<Producto> productos;
+	@OneToOne
+	@JoinColumn(name = "id_detalle")
+	private DetalleCompra detalle;
 	
-	@OneToMany(mappedBy = "id_cliente")
-	private List<Compra> compras;
+	@OneToMany(mappedBy = "id_producto")
+	private List<Producto> productos;
 	
 	
 	public Cliente() {
@@ -83,14 +86,6 @@ public class Cliente {
 
 	public void setProductos(List<Producto> productos) {
 		this.productos = productos;
-	}
-
-	public List<Compra> getCompras() {
-		return compras;
-	}
-
-	public void setCompras(List<Compra> compras) {
-		this.compras = compras;
 	}
 	
 }
