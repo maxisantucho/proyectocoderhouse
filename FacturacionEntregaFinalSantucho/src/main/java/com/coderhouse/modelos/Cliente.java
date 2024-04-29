@@ -1,5 +1,6 @@
 package com.coderhouse.modelos;
 
+import java.io.Serializable;
 import java.util.List;
 
 import jakarta.persistence.Column;
@@ -7,11 +8,13 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
+@SuppressWarnings("serial")
 @Entity
 @Table(name = "clientes")
-public class Cliente {
+public class Cliente implements Serializable{
 	
 	@Id
 	@Column(name = "id_cliente")
@@ -26,7 +29,12 @@ public class Cliente {
 	@Column(name = "email")
 	private String email;
 	
+	@OneToMany(mappedBy = "cliente")
 	private List<Producto> productos;
+	
+	private Compra compra;
+	
+	private Comprobante comprobante;
 	
 	public Cliente() {
 		super();
@@ -80,4 +88,20 @@ public class Cliente {
 		this.productos = productos;
 	}
 
+	public Compra getCompra() {
+		return compra;
+	}
+
+	public void setCompra(Compra compra) {
+		this.compra = compra;
+	}
+
+	public Comprobante getComprobante() {
+		return comprobante;
+	}
+
+	public void setComprobante(Comprobante comprobante) {
+		this.comprobante = comprobante;
+	}
+	
 }

@@ -1,15 +1,20 @@
 package com.coderhouse.modelos;
 
+import java.io.Serializable;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
+@SuppressWarnings("serial")
 @Entity
 @Table(name = "productos")
-public class Producto {
+public class Producto implements Serializable{
 	
 	@Id
 	@Column(name = "id_producto")
@@ -19,10 +24,18 @@ public class Producto {
 	private String nombreProducto;
 	@Column(name = "precio")
 	private double precio;
+	@Column(name = "stock")
+	private int stock;
 	@Column(name = "cantidad")
 	private int cantidad;
 	
+	@ManyToOne
+	@JoinColumn(name = "id_cliente")
 	private Cliente cliente;
+	
+	@ManyToOne
+	@JoinColumn(name = "id_compra")
+	private Compra compra;
 
 	public Producto() {
 		super();
@@ -52,6 +65,14 @@ public class Producto {
 		this.precio = precio;
 	}
 
+	public int getStock() {
+		return stock;
+	}
+
+	public void setStock(int stock) {
+		this.stock = stock;
+	}
+
 	public int getCantidad() {
 		return cantidad;
 	}
@@ -66,6 +87,14 @@ public class Producto {
 
 	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
+	}
+
+	public Compra getCompra() {
+		return compra;
+	}
+
+	public void setCompra(Compra compra) {
+		this.compra = compra;
 	}
 
 }

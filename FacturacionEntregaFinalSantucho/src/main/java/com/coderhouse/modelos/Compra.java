@@ -1,6 +1,6 @@
 package com.coderhouse.modelos;
 
-import java.time.LocalDate;
+import java.io.Serializable;
 import java.util.List;
 
 import jakarta.persistence.Column;
@@ -8,11 +8,15 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
+@SuppressWarnings("serial")
 @Entity
 @Table(name = "compras")
-public class Compra {
+public class Compra implements Serializable{
 	
 	@Id
 	@Column(name = "id_compra")
@@ -22,11 +26,17 @@ public class Compra {
 	private int totalProductos;
 	@Column(name = "total_compra")
 	private double totalCompra;
-	@Column(name = "fecha_compra")
-	private LocalDate fechaCompra;
+	
 	
 	private Cliente cliente;
+	
+	@OneToMany(mappedBy = "compra")
+	@Column(name = "producto")
 	private List<Producto> productos;
+	
+	@OneToOne
+	@JoinColumn(name = "id_comprobante")
+	private Comprobante comprobante;
 	
 	public Compra() {
 		super();
@@ -56,14 +66,6 @@ public class Compra {
 		this.totalCompra = totalCompra;
 	}
 	
-	public LocalDate getFechaCompra() {
-		return fechaCompra;
-	}
-	
-	public void setFechaCompra(LocalDate fechaCompra) {
-		this.fechaCompra = fechaCompra;
-	}
-	
 	public Cliente getCliente() {
 		return cliente;
 	}
@@ -71,13 +73,21 @@ public class Compra {
 	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
 	}
-	
+
 	public List<Producto> getProductos() {
 		return productos;
 	}
-	
+
 	public void setProductos(List<Producto> productos) {
 		this.productos = productos;
 	}
 
+	public Comprobante getComprobante() {
+		return comprobante;
+	}
+
+	public void setComprobante(Comprobante comprobante) {
+		this.comprobante = comprobante;
+	}
+	
 }

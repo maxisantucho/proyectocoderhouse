@@ -29,8 +29,8 @@ public class ProductoService {
 	
 	public Producto editarProductoPorId(int id, Producto producto) {
 		try {
-			if(productoRepository.existsById(id)) {
-				producto.setId(id);
+			if(productoRepository.existsById(id) && producto.getPrecio() > 0) {
+				producto.setId(id); 
 				return productoRepository.save(producto);
 			}
 		} catch(EmptyResultDataAccessException e) {
@@ -45,6 +45,20 @@ public class ProductoService {
 			return true;
 		} catch (EmptyResultDataAccessException e) {
 			return false;
+		}
+	}
+	
+	public void restarStockProducto(int id, int cantidad) throws Exception {
+		Producto producto = productoRepository.findById(id).orElse(null);
+		try {
+			if(producto != null && cantidad > 0) {
+				if(producto.getStock() >= cantidad) {
+					producto.setStock(producto.getStock() - cantidad);
+					productoRepository.save(producto);
+				}
+			}
+		} catch (EmptyResultDataAccessException e) {
+			throw new Exception(e);
 		}
 	}
 
