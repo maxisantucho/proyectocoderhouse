@@ -53,6 +53,7 @@ public class CompraService {
 			productoService.restarStockProducto(productos.getId(), cantidad);
 			totalComp += subTotal;
 			compra.setProductos(productosLista);
+			productoRepository.save(productos);
 		}
 		compra.setTotalCompra(totalComp);
 		comprobante.setTotal(totalComp);

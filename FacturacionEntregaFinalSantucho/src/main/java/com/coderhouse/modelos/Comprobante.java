@@ -3,6 +3,7 @@ package com.coderhouse.modelos;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -11,22 +12,28 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
+@Schema(description = "Modelo de Comprobante")
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "comprobantes")
 public class Comprobante implements Serializable{
-	
+
+	@Schema(description = "Id del comprobante", requiredMode = Schema.RequiredMode.REQUIRED, example = "1")
 	@Id
 	@Column(name = "id_comprobante")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+	@Schema(description = "Total final de la compra", requiredMode = Schema.RequiredMode.REQUIRED, example = "30.0")
 	@Column(name = "total")
 	private double total;
+	@Schema(description = "Fecha actual de la compra", requiredMode = Schema.RequiredMode.REQUIRED, example = "2024-3-5T10:45:33")
 	@Column(name = "fecha_compra")
 	private LocalDateTime fechaCompra;
-	
+
+	@Schema(description = "Comprobante del cliente")
 	private Cliente cliente;
-	
+
+	@Schema(description = "Comprobante de la compra")
 	@OneToOne(mappedBy = "comprobante")
 	private Compra compra;
 	

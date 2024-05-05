@@ -16,8 +16,16 @@ import org.springframework.web.bind.annotation.RestController;
 import com.coderhouse.modelos.Comprobante;
 import com.coderhouse.servicios.ComprobanteService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 @RestController
 @RequestMapping("/comprobantes")
+@Tag(name = "Gestion de Comprobantes", description = "Endpoints para controlar comprobantes")
 public class ComprobanteController {
 	
 	@Autowired
@@ -37,6 +45,11 @@ public class ComprobanteController {
 		}
 	}
 	
+	@Operation(summary = "Obtener lista de comprobantes")
+	@ApiResponses(value = {
+		@ApiResponse(responseCode = "200", description = "Lista de comprobantes fue obtenida correctamente", content = {
+				@Content(mediaType = "application/json", schema = @Schema(implementation = Comprobante.class))}),
+		@ApiResponse(responseCode = "500", description = "Error interno del servidor", content = @Content)})
 	@GetMapping(value = "/", produces = { MediaType.APPLICATION_JSON_VALUE })
 	public ResponseEntity<List<Comprobante>> listarComprobantes() {
 		try {
@@ -47,6 +60,11 @@ public class ComprobanteController {
 		}
 	}
 	
+	@Operation(summary = "Obtener comprobante por ID")
+	@ApiResponses(value = {
+		@ApiResponse(responseCode = "200", description = "Comprobante encontrado correctamente", content = {
+				@Content(mediaType = "application/json", schema = @Schema(implementation = Comprobante.class))}),
+		@ApiResponse(responseCode = "404", description = "Comprobante no encontrado", content = @Content)})
 	@GetMapping(value = "/{id}", produces = { MediaType.APPLICATION_JSON_VALUE })
 	public ResponseEntity<Comprobante> mostrarProductoPorId(@PathVariable("id") int id) {
 		try {

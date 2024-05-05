@@ -18,13 +18,26 @@ import org.springframework.web.bind.annotation.RestController;
 import com.coderhouse.modelos.Compra;
 import com.coderhouse.servicios.CompraService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 @RestController
 @RequestMapping("/compras")
+@Tag(name = "Gestion de Compras", description = "Endpoints para controlar compras")
 public class CompraController {
 	
 	@Autowired
 	private CompraService compraService;
 	
+	@Operation(summary = "Obtener lista de compras")
+	@ApiResponses(value = {
+		@ApiResponse(responseCode = "200", description = "Lista de compras fue obtenida correctamente", content = {
+				@Content(mediaType = "application/json", schema = @Schema(implementation = Compra.class))}),
+		@ApiResponse(responseCode = "500", description = "Error interno del servidor", content = @Content)})
 	@GetMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<Compra>> listarCompras() {
 		try {
@@ -35,6 +48,11 @@ public class CompraController {
 		}
 	}
 	
+	@Operation(summary = "Obtener compra por ID")
+	@ApiResponses(value = {
+		@ApiResponse(responseCode = "200", description = "Compra encontrada correctamente", content = {
+				@Content(mediaType = "application/json", schema = @Schema(implementation = Compra.class))}),
+		@ApiResponse(responseCode = "404", description = "Compra no encontrado", content = @Content)})
 	@GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<?> mostrarCompraPorId(@PathVariable int id) {
 		try {
@@ -49,16 +67,26 @@ public class CompraController {
 		}
 	}
 	
+	@Operation(summary = "Agregar nueva compra")
+	@ApiResponses(value = {
+		@ApiResponse(responseCode = "201", description = "Compra agregada correctamente", content = {
+				@Content(mediaType = "application/json", schema = @Schema(implementation = Compra.class))}),
+		@ApiResponse(responseCode = "500", description = "Error interno del servidor", content = @Content)})
 	@PostMapping(value = "/agregar", consumes = { MediaType.APPLICATION_JSON_VALUE })
 	public ResponseEntity<Compra> agregarCompra(@RequestBody Compra compra) {
 		try {
-			compraService.agregarCompra(compra);
-			return new ResponseEntity<>(compra, HttpStatus.CREATED);
+			Compra hacerCompra = compraService.agregarCompra(compra);
+			return new ResponseEntity<>(hacerCompra, HttpStatus.CREATED);
 		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 	
+	@Operation(summary = "Eliminar compra existente")
+	@ApiResponses(value = {
+		@ApiResponse(responseCode = "204", description = "Compra eliminada correctamente", content = {
+				@Content(mediaType = "application/json", schema = @Schema(implementation = Compra.class))}),
+		@ApiResponse(responseCode = "404", description = "Compra no encontrada", content = @Content)})
 	@DeleteMapping(value = "/{id}/eliminar", produces = { MediaType.APPLICATION_JSON_VALUE })
 	public ResponseEntity<Void> eliminarCompraPorId(@PathVariable("id") int id) {
 		try {

@@ -3,6 +3,9 @@ package com.coderhouse.modelos;
 import java.io.Serializable;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -13,11 +16,13 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
+@Schema(description = "Modelo de Compra")
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "compras")
 public class Compra implements Serializable{
-	
+
+	@Schema(description = "Id de al compra", requiredMode = Schema.RequiredMode.REQUIRED, example = "1")
 	@Id
 	@Column(name = "id_compra")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,13 +32,17 @@ public class Compra implements Serializable{
 	@Column(name = "total_compra")
 	private double totalCompra;
 	
-	
+
+	@Schema(description = "Cliente que compra", requiredMode = Schema.RequiredMode.REQUIRED, example = "1")
+	@Column(name = "id_cliente", length = 1200)
 	private Cliente cliente;
-	
+
+	@JsonIgnore
 	@OneToMany(mappedBy = "compra")
 	@Column(name = "producto")
 	private List<Producto> productos;
-	
+
+	@JsonIgnore
 	@OneToOne
 	@JoinColumn(name = "id_comprobante")
 	private Comprobante comprobante;

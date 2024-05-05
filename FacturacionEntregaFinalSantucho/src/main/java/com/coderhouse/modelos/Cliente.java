@@ -3,6 +3,9 @@ package com.coderhouse.modelos;
 import java.io.Serializable;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -11,30 +14,34 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
+@Schema(description = "Modelo de Cliente")
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "clientes")
 public class Cliente implements Serializable{
-	
+
+	@Schema(description = "Id del cliente", example = "1")
 	@Id
 	@Column(name = "id_cliente")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+	@Schema(description = "Nombre del cliente", requiredMode = Schema.RequiredMode.REQUIRED, example = "Maximiliano")
 	@Column(name = "nombre")
 	private String nombre;
+	@Schema(description = "Apellido del cliente", requiredMode = Schema.RequiredMode.REQUIRED, example = "Santucho")
 	@Column(name = "apellido")
 	private String apellido;
+	@Schema(description = "DNI del cliente", requiredMode = Schema.RequiredMode.REQUIRED, example = "78743421")
 	@Column(name = "dni")
 	private String dni;
+	@Schema(description = "Email del cliente", requiredMode = Schema.RequiredMode.REQUIRED, example = "maxisantucho@gmail.com")
 	@Column(name = "email")
 	private String email;
-	
+
+	@JsonIgnore
 	@OneToMany(mappedBy = "cliente")
 	private List<Producto> productos;
 	
-	private Compra compra;
-	
-	private Comprobante comprobante;
 	
 	public Cliente() {
 		super();
@@ -86,22 +93,6 @@ public class Cliente implements Serializable{
 
 	public void setProductos(List<Producto> productos) {
 		this.productos = productos;
-	}
-
-	public Compra getCompra() {
-		return compra;
-	}
-
-	public void setCompra(Compra compra) {
-		this.compra = compra;
-	}
-
-	public Comprobante getComprobante() {
-		return comprobante;
-	}
-
-	public void setComprobante(Comprobante comprobante) {
-		this.comprobante = comprobante;
 	}
 	
 }
